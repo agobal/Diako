@@ -432,12 +432,12 @@ def show(request):
 		# if file_pdf == True:
 		intersection_text = intersection_text.split()
 		# Appending LT and RT to intersection text
-		print (direction_of_travel)
+		# print (direction_of_travel)
 		if direction_of_travel in ["NB", "N/B", "EB", "E/B"]:
 			intersection_text.append("RT")
 		else:
 			intersection_text.append("LT")
-		print (intersection_text)
+		# print (intersection_text)
 		distance_to_intersection = 0
 		if len(intersection_text) > 1:
 			if intersection_text[1] in ["FEET", "FET", "FT", "MILE(S)", "MILE", "MILES"]:
@@ -518,7 +518,7 @@ def show(request):
 						# pm_seqlst.append(word2)
 					except ValueError:
 						continue
-			print (word2 + pm_width)
+			# print (word2 + pm_width)
 			word2 = word2 + pm_width
 			pm_seqlst.append(word2)
 
@@ -618,7 +618,7 @@ def show(request):
 				num = finalresult[i]
 				###############################################3
 				if (start_end == True) and (width_marker == False): #########################
-					if (("OC" in finalresult) or ("UC" in finalresult)) and ("END" in finalresult) and ("BR" in finalresult):##########################
+					if (("OC" in finalresult) or ("UC" in finalresult) or ("BR" in finalresult)) and ("END" in finalresult) and ("BR" in finalresult):##########################
 						if (len(num) == 6) and (num[2] == "."):####################
 							pm_w2[j] = float(num)#################################
 							width_marker = True
@@ -729,12 +729,16 @@ def show(request):
 
 
 		gps_loc2 = gps_loc2.split(",")
-		latit = gps_loc2[0]
-		latit = latit[2:]
-		logit = gps_loc2[1]
-		logit = logit[:-3]
-		pm_lat = latit
-		pm_long = logit
+		try:
+			latit = gps_loc2[0]
+			latit = latit[2:]
+			logit = gps_loc2[1]
+			logit = logit[:-3]
+			pm_lat = latit
+			pm_long = logit
+		except IndexError:
+			pm_lat = None
+			pm_long = None
 	else:
 		pm_lat = None
 		pm_long = None
